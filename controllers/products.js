@@ -10,15 +10,15 @@ const getAllProducts =  async (req, resp) => {
 const getOneProduct = async (req, resp) => {
   const id = req.params.id;
   const product = await Product.findOne({_id:id});
-  console.log(id);
-  console.log(product);
+  // console.log(id);
+  // console.log(product);
   return resp.json(product);
 }
 
 const createProduct = async (req,resp)=>{
   try {
     let body = req.body;
-    console.log(body);
+    // console.log(body);
     let product = await Product.create(body)
     resp.send(product)
   } catch (error) {
@@ -30,8 +30,8 @@ const createProduct = async (req,resp)=>{
    try {
     let id = req.params.id;
     let data = req.body;
-    console.log(id);
-    console.log(data)
+    // console.log(id);
+    // console.log(data)
     const product = await Product.updateOne({_id:id}, data);
     res.send({message:"working",product:product})
 
