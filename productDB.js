@@ -10,7 +10,9 @@ mongoose.set('strictQuery', false)
 const start = async()=>{
     try {
         await connectDB(url)
-        await Product.create(productJson)
+        await Product.deleteMany();
+        let database = await Product.create(productJson)
+        console.log(database);
         console.log("Success");
     } catch (error) {
         console.log(error);

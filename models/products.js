@@ -13,10 +13,12 @@ const productSchema = mongoose.Schema({
         required:true
     },
     availability:{
-        type:Boolean
+        type:Boolean,
+        default:true
     },
     image:{
-        type:String
+        type:String,
+        default:"http://dummyimage.com/200x200.png/cc0000/ffffff"
     },
     company:{
         type:String,

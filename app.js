@@ -38,31 +38,31 @@ app.get("/products", (req, resp) => {
 //     console.log(ApiData);
 //   });
 
-app
-  .route("/api/products/:id")
-  .get((req, resp) => {
-    const id = Number(req.params.id);
-    console.log(id);
-    const product = ApiData.find((product) => {
-      return product.id === id;
-    });
-    console.log(product);
-    return resp.json(product);
-  })
-  .patch((req, resp) => {
-    return resp.json({ status: "pending" });
-  })
-  .delete((req, resp) => {
-    const id = req.params.id;
-    console.log(id);
-    const productIndex = ApiData.findIndex((product)=>{
-        return product.id == id;
-    })
-    ApiData.splice(productIndex,1)
+// app
+//   .route("/api/products/:id")
+//   .get((req, resp) => {
+//     const id = Number(req.params.id);
+//     console.log(id);
+//     const product = ApiData.find((product) => {
+//       return product.id === id;
+//     });
+//     console.log(product);
+//     return resp.json(product);
+//   })
+//   .patch((req, resp) => {
+//     return resp.json({ status: "pending" });
+//   })
+//   .delete((req, resp) => {
+//     const id = req.params.id;
+//     console.log(id);
+//     const productIndex = ApiData.findIndex((product)=>{
+//         return product.id == id;
+//     })
+//     ApiData.splice(productIndex,1)
 
-    console.log(ApiData);
-    return resp.json({status:"success",id:id});
-  });
+//     console.log(ApiData);
+//     return resp.json({status:"success",id:id});
+//   });
 
 // TO GET USER WITH SPECIFIC ID
 // app.get("/api/products/:id",(req,resp)=>{
@@ -77,15 +77,15 @@ app
 
 
 // TO CREATE A USER
-app.post("/api/products", (req, resp) => {
-    const body = req.body;
-    console.log(body);
-    ApiData.push({...body,id:ApiData.length + 1})
-    fs.writeFile("./productData.json",JSON.stringify(ApiData),(err,data)=>{
-        return resp.json({status:"success",id:ApiData.length})
-    })
+// app.post("/api/products", (req, resp) => {
+//     const body = req.body;
+//     console.log(body);
+//     ApiData.push({...body,id:ApiData.length + 1})
+//     fs.writeFile("./productData.json",JSON.stringify(ApiData),(err,data)=>{
+//         return resp.json({status:"success",id:ApiData.length})
+//     })
 //   return resp.json({ status: "pending" });
-});
+// });
 
 
 //TO UPDATE THE USER
@@ -98,7 +98,7 @@ app.post("/api/products", (req, resp) => {
 // app.delete("/api/products/:id", (req, resp) => {
 //   return resp.json({ status: "pending" });
 // });
-
+// process.env.MONGODB_URL
 const start = async() =>{
   try {
     await connectDB(process.env.MONGODB_URL);
