@@ -33,7 +33,8 @@ const createProduct = async (req,resp)=>{
     // console.log(id);
     // console.log(data)
     const product = await Product.updateOne({_id:id}, data);
-    res.send({message:"working",product:product})
+    const updatedProduct = await Product.findById(id)
+    res.send({success:true,message:"Product Updated",product:updatedProduct})
 
    } catch (error) {
     console.log(error);
