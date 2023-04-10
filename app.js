@@ -6,31 +6,39 @@ const fs = require("fs");
 const ApiData = require("./productData.json");
 const { json } = require("express");
 const port = process.env.PORT || 5000;
-const product_routes = require("./routes/products")
+const errorHandler = require("./middlewares/errorMiddleware");
+const cookieParser = require("cookie-parser")
+
 const connectDB = require("./db/connect")
 
+// Routes
+const product_routes = require("./routes/products")
+const userRoute = require("./routes/users");
+
 app.use(cors());
+app.use(cookieParser())
 app.use(express.urlencoded({ extended : "false"}))
 app.use(express.json());
 
 app.use("/api/products",product_routes);
+app.use("/api/users",userRoute);
 
 app.get("/", (req, resp) => {
   resp.send("BackApi Is Live");
 });
 
 // TO SEND A LIST OF USERS IN HTML LIST FORMATE
-app.get("/products", (req, resp) => {
-  const html = `
-    <ul>
-        ${ApiData.map((product, idx) => {
-          return `<li>${product.product_name}</li>
-          <img src=${product.image}>`;
-        }).join("")}
-    </ul>
-    `;
-  resp.send(html);
-});
+// app.get("/products", (req, resp) => {
+//   const html = `
+//     <ul>
+//         ${ApiData.map((product, idx) => {
+//           return `<li>${product.product_name}</li>
+//           <img src=${product.image}>`;
+//         }).join("")}
+//     </ul>
+//     `;
+//   resp.send(html);
+// });
 
 // TO GET ALL THE USERS
 // app.get("/api/products", (req, resp) => {
@@ -99,6 +107,8 @@ app.get("/products", (req, resp) => {
 //   return resp.json({ status: "pending" });
 // });
 // process.env.MONGODB_URL
+
+app.use(errorHandler)
 const start = async() =>{
   try {
     await connectDB(process.env.MONGODB_URL);
